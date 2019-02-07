@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 
-class githubAdapter {
+export class GithubAdapter {
   constructor(baseURL, token) {
     this.axios = axios.create({baseURL, headers: {
       Authorization: 'bearer ' + token
@@ -42,11 +42,12 @@ class githubAdapter {
       )
   }
 
-  draftReleasExists() {
+  releaseDraftExists() {
     return this.getLatestRelease
       .then(latestRelease => latestRelease && latestRelease.draft)
   }
 }
-export default githubAdapter
+
+export default GithubAdapter
 
 
