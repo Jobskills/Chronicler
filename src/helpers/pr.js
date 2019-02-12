@@ -1,5 +1,6 @@
 import moment from 'moment'
 import GithubAdapter  from '../adapters/github'
+import addPRToRelease from './releaseNotesFormatter'
 
 function errorHandler(fuctionName) {
   return (error) =>
@@ -7,28 +8,6 @@ function errorHandler(fuctionName) {
       error: `${error.response.status} Could not ${fuctionName}: ${error.response.data.message}`
     })
 }
-
-/**
-   * Get the formatted pull request description to add to the release draft.
-   * @param {Object} pull_request pull request object from webhook event data
-   *
-   * @returns {String}
-   */
-function getPrDesc ({ number, title }) {
-  return `- ${title} (#${number})`
-}
-
-/**
-   * Update the existing release draft with the new pull request
-   * @param {Object} pr webhook pull request object
-   * @param {Object} release github release object
-   *
-   * @returns {String}
-   */
-function updateReleaseDraft (pr, release) {
-  return `${release.body}\n${getPrDesc(pr)}`
-}
-
 /**
  * Handle the releases endpoint response by either creating a new release draft
  * if no draft exists or editing the existing draft.
@@ -40,13 +19,13 @@ async function writeReleaseNotes (adapter, pr) {
   if (await adapter.releaseDraftExists()) {
     try {
       const latestRelease = await adapter.getLatestRelease()
-      const body = updateReleaseDraft(pr, latestRelease)
+      const body = await addPRToRelease(pr, latestRelease.body)
       await adapter.editReleaseDraft(body)
     } catch(e) {
       errorHandler(e)
     }
   } else {
-    const body = getPrDesc(pr)
+    const body = await addPRToRelease(pr)
     return adapter.createReleaseDraft(body)
       .catch(errorHandler)
   }
@@ -100,8 +79,7 @@ async function handleWebhookEvent(webhookData, token) {
     .then(() => `Successfully wrote release notes in ${repo.name} for PR ${pr.number}`)
 }
 
+export default handleWebhookEvent
 export {
-  handleWebhookEvent,
-  getPrDesc,
-  updateReleaseDraft
+  handleWebhookEvent
 }
