@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "ava --verbose",
-    "dev": "./node_modules/nodemon/bin/nodemon.js --inspect ./src/index.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js --inspect ./src/index.js ",
+    "gdev": "AUTH_AS_APP=true ./node_modules/nodemon/bin/nodemon.js --inspect ./src/index.js ",
     "start": "node ./src/index.js",
     "lint": "./node_modules/.bin/eslint ./src ./__tests__",
     "precommit": "npm run lint && npm test"

@@ -20,25 +20,27 @@ async function writeReleaseNotes (adapter, pr) {
     try {
       const latestRelease = await adapter.getLatestRelease()
       const body = await addPRToRelease(pr, latestRelease.body)
-      await adapter.editReleaseDraft(body)
+      if (body) {
+        await adapter.editReleaseDraft(body)
+      }
     } catch(e) {
       errorHandler(e)
     }
   } else {
-    const body = await addPRToRelease(pr)
+    const body = await addPRToRelease(pr, '')
     return adapter.createReleaseDraft(body)
       .catch(errorHandler)
   }
 }
 
 /**
-   * Compares the merged time to the current time and determines if the pr was
-   * merged too long ago.  PRs should be merged within 5 minutes of a webhook
-   * event in order to be added to the release draft.  Prevents duplicates if
-   * multiple webhook events are sent for older PRs.
-   *
-   * @param {String} time pr merge timestamp
-   */
+ * Compares the merged time to the current time and determines if the pr was
+ * merged too long ago.  PRs should be merged within 5 minutes of a webhook
+ * event in order to be added to the release draft.  Prevents duplicates if
+ * multiple webhook events are sent for older PRs.
+ *
+ * @param {String} time pr merge timestamp
+ */
 function isTooOld(time) {
   const now = moment()
   const mergedAt = moment(time)
@@ -48,11 +50,11 @@ function isTooOld(time) {
 }
 
 /**
-     * Create a pull request object that includes repository url
-     * @param {Object} param0 webhook event data payload
-     *
-     * @returns {Object}
-     */
+ * Create a pull request object that includes repository url
+ * @param {Object} param0 webhook event data payload
+ *
+ * @returns {Object}
+ */
 function getPrData({
   pull_request,
   repository
@@ -80,6 +82,3 @@ async function handleWebhookEvent(webhookData, token) {
 }
 
 export default handleWebhookEvent
-export {
-  handleWebhookEvent
-}
