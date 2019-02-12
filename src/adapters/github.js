@@ -34,7 +34,7 @@ export class GithubAdapter {
    * @param {Object} text the text to put in the draft
    */
   editReleaseDraft(text) {
-    return this.getLatestRelease
+    return this.getLatestRelease()
       .then((latestRelease) =>
         this.axios.patch(`/releases/${latestRelease.id}`, {
           body: text
@@ -43,8 +43,10 @@ export class GithubAdapter {
   }
 
   releaseDraftExists() {
-    return this.getLatestRelease
-      .then(latestRelease => latestRelease && latestRelease.draft)
+    return this.getLatestRelease()
+      .then(latestRelease => {
+        return latestRelease && latestRelease.draft
+      })
   }
 }
 

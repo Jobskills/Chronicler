@@ -32,6 +32,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.17.2",
+    "conventional-changelog-codemirror": "^2.0.1",
+    "conventional-changelog-writer": "^4.0.2",
     "conventional-commits-parser": "^3.0.1",
     "esm": "^3.0.52",
     "express": "^4.15.3",
