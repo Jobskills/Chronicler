@@ -72,6 +72,3 @@ test('patches a releaseDraft if PR merged, not too old & draft exists', async t 
   await handleWebhookEvent(webhookData, token)
   t.true(editReleaseDraft.called)
 })
-
-// #errorHandler()
-
