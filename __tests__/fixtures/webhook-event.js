@@ -1,3 +1,4 @@
+
 /* Mock github webhook event payload */
 const webhook = {
   pull_request: {
@@ -8,7 +9,8 @@ const webhook = {
     merged: true
   },
   repository: {
-    url: 'https://api.github.com/repos/NYTimes/Chronicler'
+    url: 'https://api.github.com/repos/NYTimes/Chronicler',
+    name: 'Chronicler'
   }
 }
 
@@ -16,7 +18,7 @@ export const mockRequest = {
   body: webhook,
   headers: {
     // fake signature to mock request header
-    'x-hub-signature': 'sha1=52c4274a1ade797a06044f73499fd46c0e5d6ecd'
+    'x-hub-signature': 'sha1=c9ea18e2f26c333f2a04ce8dcf885d5c21b7f2aa'
   }
 }
 

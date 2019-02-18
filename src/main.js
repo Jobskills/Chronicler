@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import * as webhook from './auth/webhook'
 import * as githubApp from './auth/githubApp'
 import * as installation from './auth/installation'
-import WebhookHandler from './helpers/pr'
+import handleWebhookEvent from './helpers/pr'
 
 const app = express()
 const PORT = process.env.PORT || 8080
@@ -28,8 +28,7 @@ app.post('/webhooks', async (req, res) => {
   } else {
     token = process.env.GH_TOKEN
   }
-  const handler = new WebhookHandler(token)
-  return handler.handleWebhookEvent(req.body)
+  return handleWebhookEvent(req.body, token)
     .then(result => {
       if (result && result.error) {
         return Promise.reject(result.error)
