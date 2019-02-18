@@ -9,7 +9,6 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-useless-escape": "off",
     "indent": [
         "error",
         2
