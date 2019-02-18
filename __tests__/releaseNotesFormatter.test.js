@@ -4,12 +4,12 @@ import addPRToRelease from '../src/helpers/releaseNotesFormatter'
 const BUG_RELEASE = `
 ### Bug fixes
 
-#7 fix what was broken`
+- fix what was broken (#7)`
 
 const FEATURES_RELEASE = `
 ### Features
 
-#5 add an awesome feature!!`
+- add an awesome feature!! (#5)`
 
 const FEATURES_RELEASE_BREAKING = `${FEATURES_RELEASE}
 
@@ -20,7 +20,7 @@ const FEATURES_RELEASE_BREAKING = `${FEATURES_RELEASE}
 const CHORES_RELEASE = `
 ### Other changes
 
-#111 something boring!!`
+- something boring!! (#111)`
 
 test('adds feature to empty release', async t => {
   const release = await addPRToRelease({
@@ -31,7 +31,7 @@ test('adds feature to empty release', async t => {
   t.is(release, `
 ### Features
 
-#1000 add the next big thing`)
+- add the next big thing (#1000)`)
 })
 
 test('adds another feature to an existing feature list', async t => {
@@ -43,8 +43,8 @@ test('adds another feature to an existing feature list', async t => {
   t.is(release, `
 ### Features
 
-#1000 add the next big thing
-#5 add an awesome feature!!`)
+- add the next big thing (#1000)
+- add an awesome feature!! (#5)`)
 })
 
 test('adds another feature to an release containing bugfixes', async t => {
@@ -56,7 +56,7 @@ test('adds another feature to an release containing bugfixes', async t => {
   t.is(release, `
 ### Features
 
-#5 add an awesome feature!!
+- add an awesome feature!! (#5)
 ${BUG_RELEASE}`)
 })
 
@@ -69,7 +69,7 @@ test('adds another feature to an release containing other changes', async t => {
   t.is(release, `
 ### Features
 
-#5 add an awesome feature!!
+- add an awesome feature!! (#5)
 ${CHORES_RELEASE}`)
 })
 
@@ -80,7 +80,7 @@ test('adds another feature to an release containing breaking changes', async t =
     number: 5
   }, FEATURES_RELEASE_BREAKING)
   t.is(release, `${FEATURES_RELEASE}
-#5 add an awesome feature!!
+- add an awesome feature!! (#5)
 
 ### BREAKING CHANGE
 
@@ -96,7 +96,7 @@ test('adds bugfix to to empty release', async t => {
   t.is(release, `
 ### Bug fixes
 
-#12 repair the bugs`)
+- repair the bugs (#12)`)
 })
 
 test('adds bugfix to existing bugfix list', async t => {
@@ -108,8 +108,8 @@ test('adds bugfix to existing bugfix list', async t => {
   t.is(release, `
 ### Bug fixes
 
-#12 repair the bugs
-#7 fix what was broken`)
+- repair the bugs (#12)
+- fix what was broken (#7)`)
 })
 
 test('adds bugfix to release with features', async t => {
@@ -122,7 +122,7 @@ test('adds bugfix to release with features', async t => {
 
 ### Bug fixes
 
-#12 repair the bugs`)
+- repair the bugs (#12)`)
 })
 
 test('adds bugfix to release with other changes', async t => {
@@ -135,7 +135,7 @@ test('adds bugfix to release with other changes', async t => {
   t.is(release, `
 ### Bug fixes
 
-#12 repair the bugs
+- repair the bugs (#12)
 ${CHORES_RELEASE}`)
 })
 
@@ -149,7 +149,7 @@ test('adds bugfix to release with breaking changes', async t => {
 
 ### Bug fixes
 
-#12 repair the bugs
+- repair the bugs (#12)
 
 ### BREAKING CHANGE
 
@@ -165,11 +165,11 @@ test('adds breaking change to empty release', async t => {
   t.is(release, `
 ### Bug fixes
 
-#12 repair the bugs
+- repair the bugs (#12)
 
 ### BREAKING CHANGE
 
-* everything(from #12)`)
+* everything (from #12)`)
 })
 
 test('adds breaking change to existing breaking changes', async t => {
@@ -181,15 +181,15 @@ test('adds breaking change to existing breaking changes', async t => {
   t.is(release, `
 ### Features
 
-#5 add an awesome feature!!
+- add an awesome feature!! (#5)
 
 ### Bug fixes
 
-#12 repair the bugs
+- repair the bugs (#12)
 
 ### BREAKING CHANGE
 
-* everything(from #12)
+* everything (from #12)
 * /ping route is removed (from #5)`)
 })
 
@@ -203,11 +203,11 @@ test('adds breaking to release with features', async t => {
 
 ### Bug fixes
 
-#12 repair the bugs
+- repair the bugs (#12)
 
 ### BREAKING CHANGE
 
-* everything(from #12)`)
+* everything (from #12)`)
 })
 
 test('adds breaking to release with bugfixes', async t => {
@@ -219,12 +219,12 @@ test('adds breaking to release with bugfixes', async t => {
   t.is(release, `
 ### Bug fixes
 
-#12 repair the bugs
-#7 fix what was broken
+- repair the bugs (#12)
+- fix what was broken (#7)
 
 ### BREAKING CHANGE
 
-* everything(from #12)`)
+* everything (from #12)`)
 })
 
 test('adds breaking to release with other changes', async t => {
@@ -236,15 +236,15 @@ test('adds breaking to release with other changes', async t => {
   t.is(release, `
 ### Bug fixes
 
-#12 repair the bugs
+- repair the bugs (#12)
 
 ### Other changes
 
-#111 something boring!!
+- something boring!! (#111)
 
 ### BREAKING CHANGE
 
-* everything(from #12)`)
+* everything (from #12)`)
 })
 
 test('adds chore to empty release', async t => {
@@ -256,7 +256,7 @@ test('adds chore to empty release', async t => {
   t.is(release, `
 ### Other changes
 
-#666 change`)
+- change (#666)`)
 })
 
 test('adds chore to existing chore list', async t => {
@@ -268,8 +268,8 @@ test('adds chore to existing chore list', async t => {
   t.is(release, `
 ### Other changes
 
-#666 change
-#111 something boring!!`)
+- change (#666)
+- something boring!! (#111)`)
 })
 
 test('adds chore to release with features', async t => {
@@ -282,7 +282,7 @@ test('adds chore to release with features', async t => {
 
 ### Other changes
 
-#666 change`)
+- change (#666)`)
 })
 
 test('adds chore to release with bug fixes', async t => {
@@ -295,7 +295,7 @@ test('adds chore to release with bug fixes', async t => {
 
 ### Other changes
 
-#666 change`)
+- change (#666)`)
 })
 
 test('adds chore to release with breaking changes', async t => {
@@ -308,7 +308,7 @@ test('adds chore to release with breaking changes', async t => {
 
 ### Other changes
 
-#666 change
+- change (#666)
 
 ### BREAKING CHANGE
 
@@ -354,20 +354,20 @@ test('add all the parts', async t => {
   t.is(release6, `
 ### Features
 
-#96 change everything
-#0 enable new things
+- change everything (#96)
+- enable new things (#0)
 
 ### Bug fixes
 
-#56 add the needed fix
+- add the needed fix (#56)
 
 ### Other changes
 
-#10000000 make it simple
-#3 change the internals
-#666 change
+- make it simple (#10000000)
+- change the internals (#3)
+- change (#666)
 
 ### BREAKING CHANGE
 
-* this changes everything!(from #96)`)
+* this changes everything! (from #96)`)
 })
