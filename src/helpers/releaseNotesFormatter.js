@@ -90,7 +90,7 @@ function appendToPrevRelease(prev, newRel) {
 }
 
 export async function addPRToRelease(pr, prevRelease) {
-  const prAsRelease = await formatCommit(pr.title + '\n' + pr.description)
+  const prAsRelease = await formatCommit(`${pr.title} (#${pr.number})` + '\n' + pr.body)
   if (prevRelease) {
     return appendToPrevRelease(prevRelease, prAsRelease)
   }

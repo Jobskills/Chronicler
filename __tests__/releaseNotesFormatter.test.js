@@ -24,8 +24,8 @@ const CHORES_RELEASE = `
 
 test('adds feature to empty release', async t => {
   const release = await addPRToRelease({
-    title: 'feat: add the next big thing (#1000)',
-    description: '',
+    title: 'feat: add the next big thing',
+    body: '',
     number: 1000
   }, '')
   t.is(release, `
@@ -36,8 +36,8 @@ test('adds feature to empty release', async t => {
 
 test('adds another feature to an existing feature list', async t => {
   const release = await addPRToRelease({
-    title: 'feat: add the next big thing (#1000)',
-    description: '',
+    title: 'feat: add the next big thing',
+    body: '',
     number: 1000
   }, FEATURES_RELEASE)
   t.is(release, `
@@ -49,8 +49,8 @@ test('adds another feature to an existing feature list', async t => {
 
 test('adds another feature to an release containing bugfixes', async t => {
   const release = await addPRToRelease({
-    title: 'feat: add an awesome feature!! (#5)',
-    description: '',
+    title: 'feat: add an awesome feature!!',
+    body: '',
     number: 5
   }, BUG_RELEASE)
   t.is(release, `
@@ -62,8 +62,8 @@ ${BUG_RELEASE}`)
 
 test('adds another feature to an release containing other changes', async t => {
   const release = await addPRToRelease({
-    title: 'feat: add an awesome feature!! (#5)',
-    description: '',
+    title: 'feat: add an awesome feature!!',
+    body: '',
     number: 5
   }, CHORES_RELEASE)
   t.is(release, `
@@ -75,8 +75,8 @@ ${CHORES_RELEASE}`)
 
 test('adds another feature to an release containing breaking changes', async t => {
   const release = await addPRToRelease({
-    title: 'feat: add an awesome feature!! (#5)',
-    description: '',
+    title: 'feat: add an awesome feature!!',
+    body: '',
     number: 5
   }, FEATURES_RELEASE_BREAKING)
   t.is(release, `${FEATURES_RELEASE}
@@ -89,8 +89,8 @@ test('adds another feature to an release containing breaking changes', async t =
 
 test('adds bugfix to to empty release', async t => {
   const release = await addPRToRelease({
-    title: 'fix: repair the bugs (#12)',
-    description: '',
+    title: 'fix: repair the bugs',
+    body: '',
     number: 12
   }, '')
   t.is(release, `
@@ -101,8 +101,8 @@ test('adds bugfix to to empty release', async t => {
 
 test('adds bugfix to existing bugfix list', async t => {
   const release = await addPRToRelease({
-    title: 'fix: repair the bugs (#12)',
-    description: '',
+    title: 'fix: repair the bugs',
+    body: '',
     number: 12
   }, BUG_RELEASE)
   t.is(release, `
@@ -114,8 +114,8 @@ test('adds bugfix to existing bugfix list', async t => {
 
 test('adds bugfix to release with features', async t => {
   const release = await addPRToRelease({
-    title: 'fix: repair the bugs (#12)',
-    description: '',
+    title: 'fix: repair the bugs',
+    body: '',
     number: 12
   }, FEATURES_RELEASE)
   t.is(release, `${FEATURES_RELEASE}
@@ -127,8 +127,8 @@ test('adds bugfix to release with features', async t => {
 
 test('adds bugfix to release with other changes', async t => {
   const release = await addPRToRelease({
-    title: 'fix: repair the bugs (#12)',
-    description: '',
+    title: 'fix: repair the bugs',
+    body: '',
     number: 12
   }, CHORES_RELEASE)
   t.log(release)
@@ -141,8 +141,8 @@ ${CHORES_RELEASE}`)
 
 test('adds bugfix to release with breaking changes', async t => {
   const release = await addPRToRelease({
-    title: 'fix: repair the bugs (#12)',
-    description: '',
+    title: 'fix: repair the bugs',
+    body: '',
     number: 12
   }, FEATURES_RELEASE_BREAKING)
   t.is(release, `${FEATURES_RELEASE}
@@ -158,8 +158,8 @@ test('adds bugfix to release with breaking changes', async t => {
 
 test('adds breaking change to empty release', async t => {
   const release = await addPRToRelease({
-    title: 'fix: repair the bugs (#12)',
-    description: 'BREAKING CHANGE: everything',
+    title: 'fix: repair the bugs',
+    body: 'BREAKING CHANGE: everything',
     number: 12
   }, '')
   t.is(release, `
@@ -174,8 +174,8 @@ test('adds breaking change to empty release', async t => {
 
 test('adds breaking change to existing breaking changes', async t => {
   const release = await addPRToRelease({
-    title: 'fix: repair the bugs (#12)',
-    description: 'BREAKING CHANGE: everything',
+    title: 'fix: repair the bugs',
+    body: 'BREAKING CHANGE: everything',
     number: 12
   }, FEATURES_RELEASE_BREAKING)
   t.is(release, `
@@ -195,8 +195,8 @@ test('adds breaking change to existing breaking changes', async t => {
 
 test('adds breaking to release with features', async t => {
   const release = await addPRToRelease({
-    title: 'fix: repair the bugs (#12)',
-    description: 'BREAKING CHANGE: everything',
+    title: 'fix: repair the bugs',
+    body: 'BREAKING CHANGE: everything',
     number: 12
   }, FEATURES_RELEASE)
   t.is(release, `${FEATURES_RELEASE}
@@ -212,8 +212,8 @@ test('adds breaking to release with features', async t => {
 
 test('adds breaking to release with bugfixes', async t => {
   const release = await addPRToRelease({
-    title: 'fix: repair the bugs (#12)',
-    description: 'BREAKING CHANGE: everything',
+    title: 'fix: repair the bugs',
+    body: 'BREAKING CHANGE: everything',
     number: 12
   }, BUG_RELEASE)
   t.is(release, `
@@ -229,8 +229,8 @@ test('adds breaking to release with bugfixes', async t => {
 
 test('adds breaking to release with other changes', async t => {
   const release = await addPRToRelease({
-    title: 'fix: repair the bugs (#12)',
-    description: 'BREAKING CHANGE: everything',
+    title: 'fix: repair the bugs',
+    body: 'BREAKING CHANGE: everything',
     number: 12
   }, CHORES_RELEASE)
   t.is(release, `
@@ -249,8 +249,8 @@ test('adds breaking to release with other changes', async t => {
 
 test('adds chore to empty release', async t => {
   const release = await addPRToRelease({
-    title: 'chore: change (#666)',
-    description: '',
+    title: 'chore: change',
+    body: '',
     number: 666
   }, '')
   t.is(release, `
@@ -261,8 +261,8 @@ test('adds chore to empty release', async t => {
 
 test('adds chore to existing chore list', async t => {
   const release = await addPRToRelease({
-    title: 'chore: change (#666)',
-    description: '',
+    title: 'chore: change',
+    body: '',
     number: 666
   }, CHORES_RELEASE)
   t.is(release, `
@@ -274,8 +274,8 @@ test('adds chore to existing chore list', async t => {
 
 test('adds chore to release with features', async t => {
   const release = await addPRToRelease({
-    title: 'chore: change (#666)',
-    description: '',
+    title: 'chore: change',
+    body: '',
     number: 666
   }, FEATURES_RELEASE)
   t.is(release, `${FEATURES_RELEASE}
@@ -287,8 +287,8 @@ test('adds chore to release with features', async t => {
 
 test('adds chore to release with bug fixes', async t => {
   const release = await addPRToRelease({
-    title: 'chore: change (#666)',
-    description: '',
+    title: 'chore: change',
+    body: '',
     number: 666
   }, BUG_RELEASE)
   t.is(release, `${BUG_RELEASE}
@@ -300,8 +300,8 @@ test('adds chore to release with bug fixes', async t => {
 
 test('adds chore to release with breaking changes', async t => {
   const release = await addPRToRelease({
-    title: 'chore: change (#666)',
-    description: '',
+    title: 'chore: change',
+    body: '',
     number: 666
   }, FEATURES_RELEASE_BREAKING)
   t.is(release, `${FEATURES_RELEASE}
@@ -315,40 +315,70 @@ test('adds chore to release with breaking changes', async t => {
 * /ping route is removed (from #5)`)
 })
 
+test('can handle PR with body with list of commits', async t => {
+  const release = await addPRToRelease({
+    title: 'feat: add release notes formatter',
+    number: 666,
+    body: `* refactor: put github request in separate adapter
+
+* refactor: change pr-helper to use github adapter and refactor/clean
+
+* chore(deps): add deps for formatter
+
+* chore: add vscode to gitignore
+
+* test: add releaseNotesFormatter tests
+
+* feat: add the releaseNotesFormatter
+
+* feat: make the change to releaseNotesFormatter
+
+* chore: cleanup
+
+* chore: remove commented code
+
+* chore: change style: pr number at the end`,
+  }, '')
+  t.is(release, `
+### Features
+
+- add release notes formatter (#666)`)
+})
+
 test('add all the parts', async t => {
   const release1 = await addPRToRelease({
-    title: 'chore: change (#666)',
-    description: '',
+    title: 'chore: change',
+    body: '',
     number: 666
   }, '')
 
   const release2 = await addPRToRelease({
-    title: 'feat: enable new things (#0)',
-    description: '',
+    title: 'feat: enable new things',
+    body: '',
     number: 0
   }, release1)
 
   const release3 = await addPRToRelease({
-    title: 'chore: change the internals (#3)',
-    description: '',
+    title: 'chore: change the internals',
+    body: '',
     number: 3
   }, release2)
 
   const release4 = await addPRToRelease({
-    title: 'fix: add the needed fix (#56)',
-    description: '',
+    title: 'fix: add the needed fix',
+    body: '',
     number: 56
   }, release3)
 
   const release5 = await addPRToRelease({
-    title: 'feat: change everything (#96)',
-    description: 'BREAKING CHANGE: this changes everything!',
+    title: 'feat: change everything',
+    body: 'BREAKING CHANGE: this changes everything!',
     number: 96
   }, release4)
 
   const release6 = await addPRToRelease({
-    title: 'chore: make it simple (#10000000)',
-    description: '',
+    title: 'chore: make it simple',
+    body: '',
     number: 10000000
   }, release5)
   t.is(release6, `
